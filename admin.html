@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Administrativo - RU</title>
+    <!-- Vinculando o novo arquivo CSS da administração -->
+    <link rel="stylesheet" href="admin-style.css">
+</head>
+<body>
+
+    <div class="admin-layout">
+        
+        <!-- MENU LATERAL FIXO -->
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <h2>Gestão RU</h2>
+                <p>Painel Administrativo</p>
+            </div>
+            
+            <nav class="sidebar-menu">
+                <a href="#" class="menu-link active">📊 Dashboard</a>
+                <a href="#" class="menu-link">🍽️ Alterar Cardápio</a>
+                <a href="#" class="menu-link">💳 Validar Créditos</a>
+                <a href="#" class="menu-link">📈 Relatórios</a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <p class="user-logged">Operador: Secretaria</p>
+                <a href="index.html" class="btn-logout">🚪 Sair do Sistema</a>
+            </div>
+        </aside>
+
+        <!-- CONTEÚDO PRINCIPAL (PAINEL) -->
+        <main class="main-content">
+            
+            <!-- Cabeçalho Superior -->
+            <header class="main-header">
+                <div>
+                    <h1>Visão Geral</h1>
+                    <p class="date-text">Dados atualizados em tempo real</p>
+                </div>
+                <div class="system-status">
+                    <span class="status-indicator online"></span> Sistema Online
+                </div>
+            </header>
+
+                        <!-- SEÇÃO DE MÉTRICAS DO DIA DO RU -->
+            <section class="metrics-grid">
+                <!-- Card 1: Total Vendido -->
+                <div class="metric-card">
+                    <h3>Fichas Vendidas (Hoje)</h3>
+                    <p class="metric-value" id="total-vendidas-hoje">0</p>
+                    <span class="metric-sub">Total planejado para o almoço</span>
+                </div>
+                <!-- Card 2: Total Consumido -->
+                <div class="metric-card">
+                    <h3>Refeições Servidas (Hoje)</h3>
+                    <p class="metric-value" id="total-usadas-hoje" style="color: #10b981;">0</p>
+                    <span class="metric-sub" id="sub-percentual-uso">0% de comparecimento</span>
+                </div>
+                <!-- Card 3: Não Utilizadas/Expiradas -->
+                <div class="metric-card">
+                    <h3>Fichas Ausentes / Não Usadas</h3>
+                    <p class="metric-value" id="total-ausentes-hoje" style="color: #ef4444;">0</p>
+                    <span class="metric-sub">Compradas que não passaram na catraca</span>
+                </div>
+            </section>
+
+            <!-- SEÇÃO 2: GERENCIAMENTO E FORMULÁRIO -->
+            <section class="panel-sections">
+                
+                <!-- Bloco: Atualizar Cardápio -->
+                <div class="panel-card">
+                    <h2>📝 Atualizar Cardápio do Dia</h2>
+                    <form class="admin-form">
+                        <div class="form-group">
+                            <label for="prato-principal">Prato Principal</label>
+                            <input type="text" id="prato-principal" placeholder="Ex: Frango Assado com Batatas">
+                        </div>
+                        <div class="form-group">
+                            <label for="opcao-vegetariana">Opção Vegetariana</label>
+                            <input type="text" id="opcao-vegetariana" placeholder="Ex: Escondidinho de Carne de Caju">
+                        </div>
+                        <div class="form-group">
+                            <label for="guarnicao">Guarnição / Acompanhamentos</label>
+                            <input type="text" id="guarnicao" placeholder="Ex: Arroz, Feijão, Macarrão">
+                        </div>
+                        <button type="submit" class="btn-save">Atualizar no Aplicativo dos Alunos</button>
+                    </form>
+                </div>
+
+                                <!-- Bloco: Validador de Fichas (Catraca) -->
+                <div class="panel-card shadow-sm">
+                    <h2>🔒 Catraca Virtual - Validar Ficha do Aluno</h2>
+                    
+                    <div class="counter-box" style="margin-bottom: 20px; background-color: #f8fafc; padding: 16px; border-radius: 8px; border: 1px solid #e2e8f0;">
+                        <p style="font-size: 12px; color: #64748b; font-weight: 600; text-transform: uppercase;">Ação do Operador</p>
+                        <div style="display: flex; gap: 12px; margin-top: 8px;">
+                            <input type="text" id="input-codigo-catraca" placeholder="Digite o código (Ex: RU-123456)" style="flex: 1; padding: 12px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 14px; font-weight: bold; outline: none;">
+                            <button onclick="validarFichaCatraca()" style="background-color: #10b981; color: white; border: none; padding: 0 24px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: background 0.2s;">Validar Entrada</button>
+                        </div>
+                </div>
+
+                    <h2>🕒 Últimos Acessos Liberados (Hoje)</h2>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Código Ficha</th>
+                                <th>Data da Refeição</th>
+                                <th>Status Interno</th>
+                            </tr>
+                        </thead>
+                        <tbody id="historico-catraca-linhas">
+                            <!-- Linhas inseridas dinamicamente pelo JavaScript -->
+                            <tr>
+                                <td colspan="3" style="text-align: center; color: #94a3b8; padding: 20px;">Nenhum aluno passou na catraca ainda hoje.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </section>
+
+        </main>
+    </div>
+
+    <script>
+    // FUNÇÃO: Controla a exibição do Pop-up customizado da Administração
+    function exibirAvisoAdmin(titulo, message, icone) {
+        document.getElementById('admin-pop-titulo').innerText = titulo;
+        document.getElementById('admin-pop-mensagem').innerText = message;
+        document.getElementById('admin-pop-icone').innerText = icone || "ℹ️";
+        document.getElementById('popUpAdmin').classList.remove('hidden');
+    }
+
+    function fecharPopUpAdmin() {
+        document.getElementById('popUpAdmin').classList.add('hidden');
+    }
+
+    // Retorna a data de hoje no formato YYYY-MM-DD
+    function obterDataHoje() {
+        const hoje = new Date();
+        const ano = hoje.getFullYear();
+        const mes = String(hoje.getMonth() + 1).padStart(2, '0');
+        const dia = String(hoje.getDate()).padStart(2, '0');
+        return ano + '-' + mes + '-' + dia;
+    }
+
+    // NOVA FUNÇÃO: Varre o localStorage e calcula os indicadores em tempo real
+    function calcularMetricasDoDia() {
+        const bancoFichas = localStorage.getItem('fichasRU');
+        if (!bancoFichas) return;
+
+        const listaFichas = JSON.parse(bancoFichas);
+        const dataHoje = obterDataHoje();
+
+        // 1. Filtra apenas as fichas geradas para o dia de hoje
+        const fichasDeHoje = listaFichas.filter(function(ficha) {
+            return ficha && ficha.dataValidade === dataHoje;
+        });
+
+        // 2. Separa por status (disponíveis vs usadas)
+        const usadasHoje = fichasDeHoje.filter(f => f.status === 'usada').length;
+        const disponiveisHoje = fichasDeHoje.filter(f => f.status === 'disponivel').length;
+
+        // 3. Calcula o percentual de comparecimento para o card 2
+        let percentualUso = 0;
+        if (fichasDeHoje.length > 0) {
+            percentualUso = Math.round((usadasHoje / fichasDeHoje.length) * 100);
+        }
+
+        // 4. Injeta os valores calculados diretamente nas tags HTML do painel
+        document.getElementById('total-vendidas-hoje').innerText = fichasDeHoje.length;
+        document.getElementById('total-usadas-hoje').innerText = usadasHoje;
+        document.getElementById('total-ausentes-hoje').innerText = disponiveisHoje; // Fichas de hoje ainda 'disponiveis' = não usadas
+        document.getElementById('sub-percentual-uso').innerText = percentualUso + "% de comparecimento";
+    }
+
+    // Validação da Ficha na Catraca
+    function validarFichaCatraca() {
+        const inputCodigo = document.getElementById('input-codigo-catraca');
+        const codigoDigitado = inputCodigo.value.trim().toUpperCase();
+
+        if (!codigoDigitado) {
+            exibirAvisoAdmin("Campo Vazio", "Por favor, insira o código da ficha do aluno.", "⌨️");
+            return;
+        }
+
+        const bancoFichas = localStorage.getItem('fichasRU');
+        if (!bancoFichas) {
+            exibirAvisoAdmin("Erro do Sistema", "Nenhuma ficha encontrada no banco de dados geral.", "❌");
+            return;
+        }
+
+        let listaFichas = JSON.parse(bancoFichas);
+        const indiceFicha = listaFichas.findIndex(f => f.id === codigoDigitado);
+
+        if (indiceFicha === -1) {
+            exibirAvisoAdmin("Código Inválido", "Esta ficha não foi encontrada no banco de dados.", "❌");
+            return;
+        }
+
+        const fichaEncontrada = listaFichas[indiceFicha];
+        const dataHoje = obterDataHoje();
+
+        if (fichaEncontrada.status === 'usada') {
+            exibirAvisoAdmin("Alerta de Uso", "Esta ficha já foi utilizada anteriormente no refeitório.", "🚨");
+            return;
+        }
+
+        if (fichaEncontrada.dataValidade !== dataHoje) {
+            const partes = fichaEncontrada.dataValidade.split('-');
+            const dataFichaFormatada = partes[2] + '/' + partes[1] + '/' + partes[0];
+            exibirAvisoAdmin("Acesso Negado", "Esta ficha foi agendada para o dia " + dataFichaFormatada + " e não pode ser usada hoje.", "⏳");
+            return;
+        }
+
+        // Sucesso! Modifica o status da ficha para 'usada'
+        fichaEncontrada.status = 'usada';
+        localStorage.setItem('fichasRU', JSON.stringify(listaFichas));
+
+        exibirAvisoAdmin("Acesso Liberado", "Ficha validada com sucesso! Entrada autorizada.", "✅");
+        
+        adicionarAoHistoricoTela(fichaEncontrada.id, fichaEncontrada.dataValidade);
+        inputCodigo.value = "";
+
+        // RECALCULA AS MÉTRICAS NA HORA: Atualiza os cards assim que o aluno entra
+        calcularMetricasDoDia();
+    }
+
+    function adicionarAoHistoricoTela(id, data) {
+        const tabelaCorpo = document.getElementById('historico-catraca-linhas');
+        if (tabelaCorpo.innerHTML.includes("Nenhum aluno passou")) {
+            tabelaCorpo.innerHTML = "";
+        }
+
+        const partes = data.split('-');
+        const dataExibicao = partes[2] + '/' + partes[1] + '/' + partes[0];
+
+        const novaLinha = 
+            '<tr>' +
+                '<td style="font-weight: bold; color: #1e3a8a;">' + id + '</td>' +
+                '<td>' + dataExibicao + '</td>' +
+                '<td><span style="background-color: #d1fae5; color: #065f46; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: 600;">Consumida</span></td>' +
+            '</tr>';
+
+        tabelaCorpo.innerHTML = novaLinha + tabelaCorpo.innerHTML;
+    }
+
+    // Função de salvar o cardápio (Mantida)
+    document.querySelector('.admin-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const pratoPrincipal = document.getElementById('prato-principal').value;
+        const opcaoVeg = document.getElementById('opcao-vegetariana').value;
+        const guarnicao = document.getElementById('guarnicao').value;
+
+        const dadosCardapio = {
+            principal: pratoPrincipal || "Não informado",
+            vegetariano: opcaoVeg || "Não informado",
+            acompanhamento: guarnicao || "Não informado"
+        };
+
+        localStorage.setItem('cardapioRU', JSON.stringify(dadosCardapio));
+        exibirAvisoAdmin("Cardápio Atualizado", "Os novos pratos já estão visíveis no aplicativo dos alunos.", "🎉");
+        document.querySelector('.admin-form').reset();
+    });
+
+    // Executado ao carregar a página da administração
+    window.addEventListener('DOMContentLoaded', function() {
+        calcularMetricasDoDia();
+    });
+</script>
+
+
+
+<!-- POP-UP INTERNO CUSTOMIZADO DA ADMINISTRAÇÃO -->
+<div id="popUpAdmin" class="admin-popup-overlay hidden">
+    <div class="admin-popup-content">
+        <div class="admin-popup-icon" id="admin-pop-icone">ℹ️</div>
+        <h3 class="admin-popup-title" id="admin-pop-titulo">Título do Aviso</h3>
+        <p class="admin-popup-message" id="admin-pop-mensagem">Mensagem explicativa do aviso.</p>
+        <button onclick="fecharPopUpAdmin()" class="btn-admin-pop">Entendi</button>
+    </div>
+</div>
+
+
+</body>
+</html>

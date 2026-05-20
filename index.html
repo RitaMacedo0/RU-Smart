@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Portal RU</title>
+
+    <!-- Vinculando o Manifesto PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#2563eb">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <!-- Vinculando o arquivo CSS externo -->
+    <link rel="stylesheet" href="style-index.css">
+</head>
+<body>
+
+    <div class="login-container">
+        
+        <!-- Banner Informativo (Esquerda) -->
+        <div class="login-banner">
+            <div>
+                <h1 class="banner-title">Portal do RU</h1>
+                <p class="banner-subtitle">Gerencie suas refeições e créditos em um só lugar.</p>
+            </div>
+            
+            <div class="banner-footer">
+                <div class="notice-card">
+                    <p class="notice-title">📢 Aviso do Dia:</p>
+                    <p class="notice-text">O RU funcionará em horário especial durante o período de exames.</p>
+                </div>
+                <p class="copyright">© 2026 Sistema de Gestão Universitária</p>
+            </div>
+        </div>
+
+        <!-- Formulário de Login (Direita) -->
+        <div class="login-form-box">
+            <div class="form-header">
+                <h2 class="mobile-title">Portal do RU</h2>
+                <h3 class="form-title">Acesse sua conta</h3>
+                <p class="form-subtitle">Insira suas credenciais institucionais</p>
+            </div>
+
+            <form>
+                <div class="input-group">
+                    <label for="username">Matrícula ou SIAPE</label>
+                    <input type="text" id="username" required placeholder="Ex: 2023101400">
+                </div>
+
+                <div class="input-group">
+                    <div class="label-row">
+                        <label for="password">Senha</label>
+                        <a href="#" class="forgot-link">Esqueceu a senha?</a>
+                    </div>
+                    <input type="password" id="password" required placeholder="••••••••">
+                </div>
+
+                <button type="submit" class="btn-submit">Entrar no Sistema</button>
+            </form>
+
+            <div class="form-footer">
+                Primeiro acesso? <a href="#" class="register-link">Cadastre sua conta aqui</a>.
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+    const loginForm = document.querySelector('form');
+    const usernameInput = document.getElementById('username');
+    const passwordInput = document.getElementById('password');
+
+    loginForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const username = usernameInput.value.trim();
+        const password = passwordInput.value;
+
+        if (!username || !password) {
+            alert('Por favor, preencha todos os campos.');
+            return;
+        }
+
+        // REGRA DE TESTE DO MVP:
+        // Se a matrícula começar com "202", vai para a tela do aluno
+        if (username.startsWith('202')) {
+            
+            // ESTE COMANDO FAZ O REDIRECIONAMENTO REAL:
+            window.location.href = 'aluno.html';
+            
+        } else if (username.toLowerCase().includes('admin') || username.startsWith('100')) {
+            
+            window.location.href = 'admin.html';
+            
+        } else {
+            alert('Para testar o acesso do Aluno, digite uma matrícula que comece com 202 (Ex: 2023101400)');
+        }
+    });
+    </script>
+
+<!-- Script de Ativação da PWA -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('sw.js')
+                    .then(function(reg) { console.log('PWA registrada com sucesso!'); })
+                    .catch(function(err) { console.log('Erro ao registrar PWA:', err); });
+            });
+        }
+    </script>
+
+</body>
+</html>

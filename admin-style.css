@@ -1,0 +1,338 @@
+/* CONFIGURAÇÕES GLOBAIS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: system-ui, -apple-system, sans-serif;
+}
+
+body {
+    background-color: #f1f5f9;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* ESTRUTURA GRID: Divide a tela em Menu (260px) e Conteúdo (Resto da tela) */
+.admin-layout {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    height: 100vh;
+    width: 100vw;
+}
+
+/* MENU LATERAL (SIDEBAR) */
+.sidebar {
+    background-color: #0f172a; /* Azul muito escuro/Grafite */
+    color: #ffffff;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.sidebar-brand h2 {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.sidebar-brand p {
+    font-size: 12px;
+    color: #94a3b8;
+    margin-top: 4px;
+}
+
+.sidebar-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: -150px; /* Sobe o menu para o centro da barra */
+}
+
+.menu-link {
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 14px;
+    padding: 12px;
+    border-radius: 8px;
+    transition: all 0.2s;
+}
+
+.menu-link:hover, .menu-link.active {
+    background-color: #1e293b;
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.sidebar-footer {
+    border-top: 1px solid #1e293b;
+    padding-top: 16px;
+    font-size: 12px;
+}
+
+.user-logged {
+    color: #64748b;
+    margin-bottom: 8px;
+}
+
+.btn-logout {
+    color: #ef4444;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+/* CONTEÚDO PRINCIPAL */
+.main-content {
+    padding: 40px;
+    overflow-y: auto; /* Permite rolar se a tela for pequena */
+}
+
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+}
+
+.main-header h1 {
+    font-size: 24px;
+    color: #1e293b;
+}
+
+.date-text {
+    font-size: 14px;
+    color: #64748b;
+    margin-top: 4px;
+}
+
+.system-status {
+    background-color: #ffffff;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #334155;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.status-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+.status-indicator.online { background-color: #10b981; }
+
+/* METRIC CARDS COM BORDAS IDENTIFICADORAS */
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-bottom: 32px;
+}
+
+.metric-card {
+    background-color: #ffffff;
+    padding: 24px;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    border-top: 6px solid #2563eb; /* Borda padrão Azul (Vendas) */
+}
+
+/* Aplica cores de borda específicas para o segundo e terceiro card */
+.metrics-grid .metric-card:nth-child(2) {
+    border-top-color: #10b981; /* Verde (Consumido) */
+}
+
+.metrics-grid .metric-card:nth-child(3) {
+    border-top-color: #ef4444; /* Vermelho (Não utilizado) */
+}
+
+.metric-card h3 {
+    font-size: 13px;
+    color: #64748b;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.metric-value {
+    font-size: 36px;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 8px 0;
+}
+
+.metric-sub {
+    font-size: 12px;
+    color: #94a3b8;
+    font-weight: 500;
+}
+
+
+/* SEÇÕES INFERIORES DO PAINEL (Lado a Lado) */
+.panel-sections {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+}
+
+.panel-card {
+    background-color: #ffffff;
+    padding: 24px;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.panel-card h2 {
+    font-size: 16px;
+    color: #1e293b;
+    margin-bottom: 20px;
+}
+
+/* FORMULÁRIO ADMINISTRATIVO */
+.admin-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #475569;
+}
+
+.form-group input {
+    padding: 10px 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+}
+
+.form-group input:focus {
+    border-color: #2563eb;
+}
+
+.btn-save {
+    background-color: #2563eb;
+    color: #ffffff;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: background 0.2s;
+}
+
+.btn-save:hover {
+    background-color: #1d4ed8;
+}
+
+/* TABELA DE DADOS */
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 14px;
+}
+
+.data-table th {
+    padding: 12px;
+    color: #64748b;
+    font-weight: 600;
+    border-bottom: 2px solid #f1f5f9;
+}
+
+.data-table td {
+    padding: 12px;
+    color: #334155;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+/* ESTILIZAÇÃO DO POP-UP DA ADMINISTRAÇÃO */
+.admin-popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(15, 23, 42, 0.6); /* Fundo escuro semitransparente */
+    backdrop-filter: blur(4px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.admin-popup-overlay.hidden {
+    display: none;
+}
+
+.admin-popup-content {
+    background-color: #ffffff;
+    padding: 32px;
+    border-radius: 16px;
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    animation: popupAparecer 0.2s ease-out;
+}
+
+.admin-popup-icon {
+    font-size: 48px;
+    margin-bottom: 12px;
+}
+
+.admin-popup-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 8px;
+}
+
+.admin-popup-message {
+    font-size: 14px;
+    color: #475569;
+    margin-bottom: 24px;
+    line-height: 1.5;
+}
+
+.btn-admin-pop {
+    background-color: #0f172a;
+    color: #ffffff;
+    border: none;
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-admin-pop:hover {
+    background-color: #1e293b;
+}
+
+@keyframes popupAparecer {
+    from {
+        transform: scale(0.95);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+

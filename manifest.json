@@ -1,0 +1,16 @@
+{
+  "name": "Portal RU - Restaurante Universitário",
+  "short_name": "Portal RU",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2563eb",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "https://flaticon.com",
+      "sizes": "512xl512",
+      "type": "image/png"
+    }
+  ]
+}
