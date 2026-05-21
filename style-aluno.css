@@ -1,0 +1,427 @@
+/* RESET E CONFIGURAÇÕES GLOBAIS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: system-ui, -apple-system, sans-serif;
+    -webkit-tap-highlight-color: transparent; /* Remove o flash azul ao tocar no celular */
+}
+
+body {
+    background-color: #f3f4f6;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* CONTAINER ESTILO SMARTPHONE */
+.app-container {
+    background-color: #ffffff;
+    width: 100%;
+    height: 100vh; /* Ocupa a altura cheia no celular real */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+}
+
+/* REGRA PARA COMPUTADOR (Telas maiores que 768px) */
+@media (min-width: 768px) {
+    .app-container {
+        width: 375px;        /* Largura padrão de um celular no computador */
+        height: 700px;       /* Altura padrão proporcional */
+        border-radius: 40px; /* Bordas arredondadas imitando o aparelho */
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+        border: 12px solid #1f2937; /* Moldura simulando o celular físico */
+    }
+}
+
+/* ÁREA DE CONTEÚDO COM ROLAGEM SUTIL */
+.app-main {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    padding-bottom: 100px; /* Garante que o conteúdo não fique escondido sob os menus */
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* ESCONDER BARRA DE ROLAGEM PADRÃO */
+.app-main::-webkit-scrollbar {
+    display: none;
+}
+
+/* TOPO / HEADER */
+.app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 8px;
+}
+
+.profile-section {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    background-color: #2563eb;
+    color: #ffffff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.welcome-text {
+    font-size: 12px;
+    color: #9ca3af;
+}
+
+.user-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: #1f2937;
+}
+
+.btn-notification {
+    background-color: #f3f4f6;
+    border: none;
+    padding: 8px;
+    border-radius: 50%;
+    cursor: pointer;
+    position: relative;
+}
+
+.notification-badge {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    width: 8px;
+    height: 8px;
+    background-color: #ef4444;
+    border-radius: 50%;
+}
+
+/* CARTEIRA / WALLET CARD */
+.wallet-card {
+    background: linear-gradient(135deg, #2563eb, #1e40af);
+    border-radius: 16px;
+    padding: 20px;
+    color: #ffffff;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3);
+}
+
+.wallet-label {
+    font-size: 12px;
+    color: #93c5fd;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+}
+
+.wallet-balance {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+    margin-top: 4px;
+}
+
+.currency {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.amount {
+    font-size: 32px;
+    font-weight: 900;
+}
+
+.wallet-footer {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.registration-number {
+    font-size: 12px;
+    color: #bfdbfe;
+}
+
+.btn-recharge {
+    background-color: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: #ffffff;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-recharge:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* CARDÁPIO */
+.menu-card {
+    background-color: #f9fafb;
+    border: 1px solid #f3f4f6;
+    border-radius: 16px;
+    padding: 16px;
+}
+
+.menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.menu-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #1f2937;
+}
+
+.menu-badge {
+    font-size: 12px;
+    font-weight: 600;
+    color: #2563eb;
+    background-color: #dbeafe;
+    padding: 2px 8px;
+    border-radius: 9999px;
+}
+
+.menu-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.menu-list li {
+    font-size: 12px;
+    color: #4b5563;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+}
+.status-dot.green { background-color: #10b981; }
+.status-dot.yellow { background-color: #f59e0b; }
+.status-dot.red { background-color: #ef4444; }
+
+/* GRID DE ATALHOS RÁPIDOS */
+.shortcuts-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.shortcut-item {
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+    padding: 16px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.shortcut-item:active {
+    transform: scale(0.95);
+    background-color: #f9fafb;
+}
+
+.shortcut-icon {
+    font-size: 24px;
+}
+
+.shortcut-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #374151;
+}
+
+/* NAVEGAÇÃO INFERIOR FIXED (Tab Bar) */
+.bottom-nav {
+    background-color: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid #e5e7eb;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 64px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    align-items: center;
+    z-index: 10;
+}
+
+.nav-item {
+    background: none;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #9ca3af;
+    cursor: pointer;
+}
+
+.nav-item.active {
+    color: #2563eb;
+}
+
+.nav-icon {
+    font-size: 18px;
+}
+
+.nav-label {
+    font-size: 10px;
+    font-weight: 500;
+    margin-top: 2px;
+}
+
+.nav-spacer {
+    height: 100%;
+}
+
+/* BOTÃO FLUTUANTE (FAB) */
+.fab-container {
+    position: absolute;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 20;
+}
+
+.fab-button {
+    background-color: #2563eb;
+    color: #ffffff;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: 4px solid #ffffff;
+    font-size: 20px;
+    cursor: pointer;
+    box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.4);
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fab-button:active {
+    transform: scale(0.9);
+    background-color: #1e40af;
+}
+
+/* MODAL DE EFEITO NATIVO */
+.modal-overlay {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 30;
+    display: flex;
+    align-items: flex-end; /* Abre subindo de baixo, estilo iOS */
+}
+
+.modal-overlay.hidden {
+    display: none;
+}
+
+.modal-content {
+    background-color: #ffffff;
+    width: 100%;
+    border-top-left-radius: 24px;
+    border-top-right-radius: 24px;
+    padding: 24px;
+    text-align: center;
+}
+
+.modal-drag-handle {
+    width: 48px;
+    height: 6px;
+    background-color: #d1d5db;
+    border-radius: 9999px;
+    margin: 0 auto 16px auto;
+}
+
+.modal-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1f2937;
+}
+
+.modal-subtitle {
+    font-size: 12px;
+    color: #6b7280;
+    margin-top: 4px;
+}
+
+.qr-placeholder {
+    width: 192px;
+    height: 192px;
+    background-color: #f3f4f6;
+    margin: 20px auto;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 4px dashed #d1d5db;
+}
+
+.qr-text {
+    color: #9ca3af;
+    font-size: 12px;
+}
+
+.btn-close-modal {
+    background-color: #f3f4f6;
+    border: none;
+    color: #374151;
+    width: 100%;
+    padding: 12px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-close-modal:hover {
+    background-color: #e5e7eb;
+}
+
+/* REGRA OBRIGATÓRIA PARA O SISTEMA DE ABAS FUNCIONAR */
+.aba-conteudo.hidden {
+    display: none !important;
+}
